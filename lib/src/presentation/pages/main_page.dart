@@ -18,80 +18,88 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.appMainColor,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text(
-              "Ceiba",
-              style: TextStyle(
-                fontSize: 24,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-            Text(
-              "Book",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            GetBuilder<UserController>(builder: (userList) {
-              users = [];
-              users.addAll(userList.userList);
+      appBar: _buildAppBar(),
+      body: _buildBody(),
+    );
+  }
 
-              return userList.isLoaded
-                  ? Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: SearchableList<dynamic>(
-                          initialList: users,
-                          builder: (dynamic user) => UserCard(user: user),
-                          filter: _filterUserList,
-                          emptyWidget: const EmptyView(),
-                          inputDecoration: InputDecoration(
-                            labelText: "Buscar usuario",
-                            fillColor: Colors.white,
-                            floatingLabelStyle:
-                                const TextStyle(color: AppColors.appMainColor),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: AppColors.appMainColor,
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
+  PreferredSizeWidget _buildAppBar() {
+    return AppBar(
+      backgroundColor: AppColors.appMainColor,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Text(
+            "Ceiba",
+            style: TextStyle(
+              fontSize: 24,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          Text(
+            "Book",
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBody() {
+    return SafeArea(
+      child: Column(
+        children: [
+          GetBuilder<UserController>(builder: (userList) {
+            users = [];
+            users.addAll(userList.userList);
+
+            return userList.isLoaded
+                ? Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: SearchableList<dynamic>(
+                        initialList: users,
+                        builder: (dynamic user) => UserCard(user: user),
+                        filter: _filterUserList,
+                        emptyWidget: const EmptyView(),
+                        inputDecoration: InputDecoration(
+                          labelText: "Buscar usuario",
+                          fillColor: Colors.white,
+                          floatingLabelStyle:
+                              const TextStyle(color: AppColors.appMainColor),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: AppColors.appMainColor,
+                              width: 1.0,
                             ),
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
                       ),
-                    )
-                  : Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          SizedBox(
-                            child: Center(
-                                child: CircularProgressIndicator(
-                              color: AppColors.appMainColor,
-                            )),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text("Loading users..."),
-                          )
-                        ],
-                      ),
-                    );
-            }),
-          ],
-        ),
+                    ),
+                  )
+                : Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        SizedBox(
+                          child: Center(
+                              child: CircularProgressIndicator(
+                            color: AppColors.appMainColor,
+                          )),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text("Loading users..."),
+                        )
+                      ],
+                    ),
+                  );
+          }),
+        ],
       ),
     );
   }
