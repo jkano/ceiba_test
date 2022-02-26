@@ -1,4 +1,5 @@
-import 'package:ceiba_book/src/data/repositories/user_repository.dart';
+import 'package:ceiba_book/src/data/repositories/posts_repository.dart';
+import 'package:ceiba_book/src/domain/models/post.dart';
 import 'package:ceiba_book/src/domain/models/user.dart';
 import 'package:get/get.dart';
 
@@ -8,25 +9,48 @@ class PostController extends GetxController {
   PostController({required this.postRepo});
 
   List<dynamic> _postList = [];
-  List<dynamic> get userList => _postList;
+  List<dynamic> get postList => _postList;
 
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;
 
-  Future<void> getUserList() async {
+  void _addPostsToList(List<dynamic> _posts) {
+    _postList = [];
+    List<dynamic> posts =
+        _posts.map((dynamic post) => Post.fromJson(post)).toList();
+    _postList.addAll(posts);
+    _isLoaded = true;
+  }
+
+  Future<void> getPostsList() async {
     _isLoaded = false;
 
     // TODO: Only do this if there's nothing on the DB
-    Response response = await userRepo.getUserList();
+    Response response = await postRepo.getPostsList();
 
     // Success
     if (response.statusCode == 200) {
+      _addPostsToList(response.body);
+      // Update the UI
+      update();
+    } else {
       _postList = [];
-      List<dynamic> users =
-          response.body.map((dynamic user) => User.fromJson(user)).toList();
-      _postList.addAll(users);
-      _isLoaded = true;
-      // Update the UI (like setState)
+      // Update the UI
+      update();
+    }
+  }
+
+  Future<void> getPostsByUserId(int userId) async {
+    _isLoaded = false;
+
+    // TODO: Only do this if there's nothing on the DB
+    Response response = await postRepo.getPostsListByUser(userId);
+
+    // Success
+    if (response.statusCode == 200) {
+      _addPostsToList(response.body);
+      print("got posts");
+      // Update the UI
       update();
     } else {
       _postList = [];

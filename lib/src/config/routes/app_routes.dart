@@ -21,7 +21,7 @@ class AppRoutes {
         var userId = Get.parameters["userId"];
         return PostDetail(userId: int.parse(userId!));
       },
-      transition: Transition.fadeIn,
+      transition: Transition.rightToLeftWithFade,
     ),
   ];
 }

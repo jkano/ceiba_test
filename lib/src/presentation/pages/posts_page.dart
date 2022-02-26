@@ -1,7 +1,11 @@
+import 'package:ceiba_book/src/config/routes/app_routes.dart';
 import 'package:ceiba_book/src/core/colors.dart';
+import 'package:ceiba_book/src/core/utils/initials_from_name.dart';
+import 'package:ceiba_book/src/data/repositories/posts_repository.dart';
+import 'package:ceiba_book/src/domain/models/post.dart';
 import 'package:ceiba_book/src/domain/models/user.dart';
+import 'package:ceiba_book/src/presentation/controllers/post_controller.dart';
 import 'package:ceiba_book/src/presentation/controllers/user_controller.dart';
-import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,146 +16,167 @@ class PostDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*
-    var user = Get.find<UserController>()
+    // Get the user to get it's info
+    var _user = Get.find<UserController>()
         .userList
         .where((dynamic element) => element.id == userId)
         .toList();
-    */
 
-    var items = [];
-    items = List<String>.generate(10, (i) => 'Title $i');
+    var _currentUser = _user[0];
+
+    // Get the posts made by the user
+    Get.find<PostController>().getPostsByUserId(userId);
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                ClipPath(
-                  clipper: const BackgroundBand(offset: 100),
-                  child: Container(
-                    color: const Color.fromARGB(255, 34, 143, 89),
-                    width: double.maxFinite,
-                    height: 200,
-                  ),
-                ),
-                const SizedBox(
-                  height: 200,
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
+        child: GetBuilder<PostController>(builder: (postController) {
+          return Column(
+            children: [
+              Stack(
+                children: [
+                  Positioned(
+                    top: 5,
+                    left: 10,
                     child: CircleAvatar(
-                      backgroundColor: Color.fromARGB(255, 203, 215, 221),
-                      child: Text(
-                        'LG',
-                        style: TextStyle(
-                          fontSize: 50,
-                          color: AppColors.appTextColor,
+                      radius: 20,
+                      backgroundColor: const Color.fromARGB(255, 219, 231, 227),
+                      child: IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: const Icon(Icons.arrow_back),
+                          iconSize: 24,
+                          splashRadius: 20,
+                          color: AppColors.appMainColor),
+                    ),
+                  ),
+                  ClipPath(
+                    clipper: const BackgroundBand(offset: 100),
+                    child: Container(
+                      color: const Color.fromARGB(255, 34, 143, 89),
+                      width: double.maxFinite,
+                      height: 200,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 200,
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: CircleAvatar(
+                        backgroundColor:
+                            const Color.fromARGB(255, 203, 215, 221),
+                        child: Text(
+                          getInitialsFromName(_currentUser.name!),
+                          style: const TextStyle(
+                            fontSize: 50,
+                            color: AppColors.appTextColor,
+                          ),
                         ),
+                        radius: 60,
                       ),
-                      radius: 60,
                     ),
-                  ),
-                )
-              ],
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 8.0),
-              child: Text(
-                "Leanne Graham",
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.appTextColor,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.phone),
-                  SizedBox(width: 5),
-                  Text("1-770-736-8031 x56442"),
+                  )
                 ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.email),
-                  SizedBox(width: 5),
-                  Text("Sincere@april.biz"),
-                ],
-              ),
-            ),
-            const Divider(
-              height: 20,
-              thickness: 1,
-              indent: 10,
-              endIndent: 10,
-              color: AppColors.appTextColor,
-            ),
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.all(10),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
-                  "PUBLICACIONES",
-                  style: TextStyle(
+                  _currentUser.name!,
+                  style: const TextStyle(
+                    fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: AppColors.appMainColor,
+                    color: AppColors.appTextColor,
                   ),
                 ),
               ),
-            ),
-            Expanded(
-              child: items.isEmpty
-                  ? const Padding(
-                      padding: EdgeInsets.only(top: 16.0),
-                      child: Text("No hay publicaciones"),
-                    )
-                  : ListView.builder(
-                      itemCount: items.length,
-                      itemBuilder: (context, index) {
-                        return commentCard(
-                            "sint suscipit perspiciatis velit dolorum rerum ipsa laboriosam odio",
-                            "itaque id aut magnam\npraesentium quia et ea odit et ea voluptas et\nsapiente quia nihil amet occaecati quia id voluptatem\nincidunt ea est distinctio odio\nsuscipit nam nisi quo aperiam aut\nasperiores eos fugit maiores voluptatibus quia\nvoluptatem quis ullam qui in alias quia est\nconsequatur magni mollitia accusamus ea nisi voluptate dicta");
-                      },
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.phone),
+                    const SizedBox(width: 5),
+                    Text(_currentUser.phone!),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.email),
+                    const SizedBox(width: 5),
+                    Text(_currentUser.email!),
+                  ],
+                ),
+              ),
+              const Divider(
+                height: 20,
+                thickness: 1,
+                indent: 10,
+                endIndent: 10,
+                color: AppColors.appTextColor,
+              ),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    "PUBLICACIONES",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: AppColors.appMainColor,
                     ),
-            ),
-          ],
-        ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: postController.isLoaded
+                    ? ListView.builder(
+                        itemCount: postController.postList.length,
+                        itemBuilder: (context, index) {
+                          return commentCard(
+                              getInitialsFromName(_currentUser.name!),
+                              postController.postList[index].title,
+                              postController.postList[index].body);
+                        },
+                      )
+                    : const Padding(
+                        padding: EdgeInsets.only(top: 16.0),
+                        child: Text("No hay publicaciones"),
+                      ),
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
 }
 
-Widget commentCard(String title, String message) {
+Widget commentCard(String initials, String title, String message) {
   return Padding(
     padding: const EdgeInsets.all(10.0),
     child: Container(
       width: double.maxFinite,
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 216, 243, 213),
+        color: const Color.fromARGB(255, 216, 243, 213),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Column(children: [
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              const Padding(
-                padding: EdgeInsets.only(right: 8.0),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
                 child: CircleAvatar(
-                  backgroundColor: Color.fromARGB(255, 203, 215, 221),
+                  backgroundColor: const Color.fromARGB(255, 203, 215, 221),
                   child: Text(
-                    'LG',
-                    style: TextStyle(
+                    initials,
+                    style: const TextStyle(
                       color: AppColors.appTextColor,
                     ),
                   ),

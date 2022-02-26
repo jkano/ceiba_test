@@ -3,7 +3,7 @@ import 'package:ceiba_book/src/domain/models/user.dart';
 import 'package:get/get.dart';
 
 class UserController extends GetxController {
-  final PostRepo userRepo;
+  final UserRepo userRepo;
 
   UserController({required this.userRepo});
 
