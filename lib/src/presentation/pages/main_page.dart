@@ -20,7 +20,25 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.appMainColor,
-        title: const Text("Prueba de ingreso"),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Text(
+              "Ceiba",
+              style: TextStyle(
+                fontSize: 24,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+            Text(
+              "Book",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
       ),
       body: SafeArea(
         child: Column(
