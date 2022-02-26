@@ -1,9 +1,5 @@
-import 'package:ceiba_book/src/config/routes/app_routes.dart';
 import 'package:ceiba_book/src/core/colors.dart';
 import 'package:ceiba_book/src/core/utils/initials_from_name.dart';
-import 'package:ceiba_book/src/data/repositories/posts_repository.dart';
-import 'package:ceiba_book/src/domain/models/post.dart';
-import 'package:ceiba_book/src/domain/models/user.dart';
 import 'package:ceiba_book/src/presentation/controllers/post_controller.dart';
 import 'package:ceiba_book/src/presentation/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
