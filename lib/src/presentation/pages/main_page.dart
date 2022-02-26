@@ -1,4 +1,5 @@
 import 'package:ceiba_book/src/core/colors.dart';
+import 'package:ceiba_book/src/core/constants.dart';
 import 'package:ceiba_book/src/presentation/controllers/user_controller.dart';
 import 'package:ceiba_book/src/presentation/widgets/user_card.dart';
 import 'package:flutter/material.dart';
@@ -30,14 +31,14 @@ class _MainPageState extends State<MainPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
           Text(
-            "Ceiba",
+            kAppTitle1,
             style: TextStyle(
               fontSize: 24,
               fontStyle: FontStyle.italic,
             ),
           ),
           Text(
-            "Book",
+            kAppTitle2,
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,

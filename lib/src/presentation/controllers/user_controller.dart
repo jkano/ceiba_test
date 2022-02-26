@@ -1,14 +1,16 @@
+import 'package:ceiba_book/src/core/constants.dart';
 import 'package:ceiba_book/src/data/repositories/user_repository.dart';
 import 'package:ceiba_book/src/domain/models/user.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 
 class UserController extends GetxController {
   final UserRepo userRepo;
 
   UserController({required this.userRepo});
 
-  List<dynamic> _userList = [];
-  List<dynamic> get userList => _userList;
+  List<User> _userList = [];
+  List<User> get userList => _userList;
 
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;
@@ -16,22 +18,31 @@ class UserController extends GetxController {
   Future<void> getUserList() async {
     _isLoaded = false;
 
-    // TODO: Only do this if there's nothing on the DB
-    Response response = await userRepo.getUserList();
+    final box = await Hive.openBox<User>(kUserBox);
+    _userList = box.values.toList();
 
-    // Success
-    if (response.statusCode == 200) {
-      _userList = [];
-      List<dynamic> users =
-          response.body.map((dynamic user) => User.fromJson(user)).toList();
-      _userList.addAll(users);
-      _isLoaded = true;
-      // Update the UI (like setState)
-      update();
+    if (_userList.isEmpty) {
+      // We dont have any user stored internally, get them from the server
+      print("No users stored, getting users from server");
+
+      Response response = await userRepo.getUserList();
+
+      // Success
+      if (response.statusCode == 200) {
+        response.body
+            .map((jsonUser) => _userList.add(User.fromJson(jsonUser)))
+            .toList();
+        // Add users to Hive box
+        box.addAll(_userList);
+        _isLoaded = true;
+      }
     } else {
-      _userList = [];
-      // Update the UI
-      update();
+      // We have users stored internally
+      print("Using users stored on local storage");
+      _isLoaded = true;
     }
+
+    // Update the UI (like setState)
+    update();
   }
 }

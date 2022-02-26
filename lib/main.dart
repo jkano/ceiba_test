@@ -1,14 +1,25 @@
+import 'package:ceiba_book/src/core/constants.dart';
 import 'package:ceiba_book/src/config/routes/app_routes.dart';
+import 'package:ceiba_book/src/domain/models/user.dart';
 import 'package:ceiba_book/src/presentation/controllers/post_controller.dart';
 import 'package:ceiba_book/src/presentation/controllers/user_controller.dart';
 import 'package:ceiba_book/src/presentation/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ceiba_book/src/config/helper/dependencies.dart' as dependencies;
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dependencies.init();
+  await Hive.initFlutter();
+  // Register all of our adapters
+  Hive.registerAdapter<User>(UserAdapter());
+  Hive.registerAdapter<Address>(AddressAdapter());
+  Hive.registerAdapter<Geo>(GeoAdapter());
+  Hive.registerAdapter<Company>(CompanyAdapter());
+  await Hive.openBox<User>(kUserBox);
   runApp(const CeibaBook());
 }
 

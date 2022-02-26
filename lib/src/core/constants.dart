@@ -1,4 +1,7 @@
-const String kAppTitle = 'Prueba de Ingreso';
+const String kAppTitle1 = 'Ceiba';
+const String kAppTitle2 = 'Book';
+
+const String kUserBox = 'users';
 
 // API
 const String kBaseUrl = 'https://jsonplaceholder.typicode.com';
