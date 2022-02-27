@@ -7,7 +7,6 @@ import 'package:ceiba_book/src/presentation/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ceiba_book/src/config/helper/dependencies.dart' as dependencies;
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> main() async {

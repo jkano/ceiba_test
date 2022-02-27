@@ -51,7 +51,6 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildBody() {
-    print("_build body");
     return SafeArea(
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -112,7 +111,6 @@ class _MainPageState extends State<MainPage> {
   }
 
   List<dynamic> _filterUserList(search) {
-    print(search);
     return users
         .where((element) =>
             element.name!.toLowerCase().contains(search.toLowerCase()))

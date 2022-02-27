@@ -38,8 +38,7 @@ class PostDetail extends StatelessWidget {
                       left: 10,
                       child: CircleAvatar(
                         radius: 20,
-                        backgroundColor:
-                            const Color.fromARGB(255, 219, 231, 227),
+                        backgroundColor: AppColors.profileBgColor,
                         child: IconButton(
                             onPressed: () {
                               Get.back();
@@ -53,7 +52,7 @@ class PostDetail extends StatelessWidget {
                     ClipPath(
                       clipper: const BackgroundBand(offset: 100),
                       child: Container(
-                        color: const Color.fromARGB(255, 34, 143, 89),
+                        color: AppColors.bandBgColor,
                         width: double.maxFinite,
                         height: 200,
                       ),
@@ -63,8 +62,7 @@ class PostDetail extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: CircleAvatar(
-                          backgroundColor:
-                              const Color.fromARGB(255, 203, 215, 221),
+                          backgroundColor: AppColors.profileBgColor,
                           child: Text(
                             getInitialsFromName(_currentUser.name!),
                             style: const TextStyle(
@@ -163,7 +161,7 @@ Widget commentCard(String initials, String title, String message) {
     child: Container(
       width: double.maxFinite,
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 216, 243, 213),
+        color: AppColors.commentCardColor,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -174,7 +172,7 @@ Widget commentCard(String initials, String title, String message) {
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child: CircleAvatar(
-                  backgroundColor: const Color.fromARGB(255, 203, 215, 221),
+                  backgroundColor: AppColors.profileBgColor,
                   child: Text(
                     initials,
                     style: const TextStyle(

@@ -1,6 +1,8 @@
+import 'package:ceiba_book/src/core/colors.dart';
 import 'package:ceiba_book/src/core/constants.dart';
 import 'package:ceiba_book/src/data/api/api_client.dart';
 import 'package:ceiba_book/src/domain/models/user.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 
@@ -29,6 +31,14 @@ class UserRepo extends GetxService {
 
         // Add users to Hive box
         box.addAll(userList);
+      } else {
+        Get.snackbar("Error", "Could not get users from server",
+            icon: const Icon(
+              Icons.error,
+              color: Colors.white,
+            ),
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: AppColors.appCardColor);
       }
     }
 

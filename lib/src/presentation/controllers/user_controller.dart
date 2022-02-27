@@ -1,8 +1,6 @@
-import 'package:ceiba_book/src/core/constants.dart';
 import 'package:ceiba_book/src/data/repositories/user_repository.dart';
 import 'package:ceiba_book/src/domain/models/user.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 
 class UserController extends GetxController {
   final UserRepo userRepo;

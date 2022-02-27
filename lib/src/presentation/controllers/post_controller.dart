@@ -13,48 +13,21 @@ class PostController extends GetxController {
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;
 
-  void _addPostsToList(List<dynamic> _posts) {
-    _postList = [];
-    List<dynamic> posts =
-        _posts.map((dynamic post) => Post.fromJson(post)).toList();
-    _postList.addAll(posts);
-    _isLoaded = true;
-  }
-
   Future<void> getPostsList() async {
     _isLoaded = false;
+    _postList = await postRepo.getPostsList();
+    _isLoaded = true;
 
-    // TODO: Only do this if there's nothing on the DB
-    Response response = await postRepo.getPostsList();
-
-    // Success
-    if (response.statusCode == 200) {
-      _addPostsToList(response.body);
-      // Update the UI
-      update();
-    } else {
-      _postList = [];
-      // Update the UI
-      update();
-    }
+    // Update the UI
+    update();
   }
 
   Future<void> getPostsByUserId(int userId) async {
     _isLoaded = false;
+    _postList = await postRepo.getPostsListByUser(userId);
+    _isLoaded = true;
 
-    // TODO: Only do this if there's nothing on the DB
-    Response response = await postRepo.getPostsListByUser(userId);
-
-    // Success
-    if (response.statusCode == 200) {
-      _addPostsToList(response.body);
-      print("got posts");
-      // Update the UI
-      update();
-    } else {
-      _postList = [];
-      // Update the UI
-      update();
-    }
+    // Update the UI
+    update();
   }
 }
