@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ceiba_book">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="ceiba_book"
+        android:label="CeibaBook"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
