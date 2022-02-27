@@ -1,5 +1,4 @@
 import 'package:ceiba_book/src/data/repositories/posts_repository.dart';
-import 'package:ceiba_book/src/domain/models/post.dart';
 import 'package:get/get.dart';
 
 class PostController extends GetxController {

@@ -65,6 +65,7 @@ class _MainPageState extends State<MainPage> {
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: SearchableList<dynamic>(
+                          key: const Key("list"),
                           searchTextController: _controller,
                           initialList: users,
                           builder: (dynamic user) => UserCard(user: user),
@@ -88,6 +89,7 @@ class _MainPageState extends State<MainPage> {
                     )
                   : Expanded(
                       child: Column(
+                        key: const Key("loading"),
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
                           SizedBox(
