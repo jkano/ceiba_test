@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Post {
   int? userId;
   int? id;
@@ -30,4 +32,7 @@ class Post {
         other.body == body &&
         other.userId == userId;
   }
+
+  @override
+  int get hashCode => hashValues(id, title, body, userId);
 }

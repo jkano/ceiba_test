@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:flutter/material.dart';
 
 part 'user.g.dart';
 
@@ -85,6 +86,10 @@ class User extends HiveObject {
         other.website == website &&
         other.company == company;
   }
+
+  @override
+  int get hashCode =>
+      hashValues(id, name, username, email, address, phone, website, company);
 }
 
 @HiveType(typeId: 1)
@@ -135,6 +140,9 @@ class Address {
         other.zipcode == zipcode &&
         other.geo == geo;
   }
+
+  @override
+  int get hashCode => hashValues(street, suite, city, zipcode, geo);
 }
 
 @HiveType(typeId: 2)
@@ -163,6 +171,9 @@ class Geo {
   bool operator ==(Object other) {
     return (other is Geo) && other.lat == lat && other.lng == lng;
   }
+
+  @override
+  int get hashCode => hashValues(lat, lng);
 }
 
 @HiveType(typeId: 3)
@@ -199,4 +210,7 @@ class Company {
         other.catchPhrase == catchPhrase &&
         other.bs == bs;
   }
+
+  @override
+  int get hashCode => hashValues(name, catchPhrase, bs);
 }
