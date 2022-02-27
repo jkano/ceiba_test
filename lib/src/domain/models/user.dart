@@ -38,6 +38,11 @@ class User extends HiveObject {
       this.website,
       this.company});
 
+  @override
+  String toString() {
+    return "$name, $email, $phone";
+  }
+
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];

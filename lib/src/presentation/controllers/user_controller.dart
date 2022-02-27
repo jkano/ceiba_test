@@ -17,30 +17,8 @@ class UserController extends GetxController {
 
   Future<void> getUserList() async {
     _isLoaded = false;
-
-    final box = await Hive.openBox<User>(kUserBox);
-    _userList = box.values.toList();
-
-    if (_userList.isEmpty) {
-      // We dont have any user stored internally, get them from the server
-      print("No users stored, getting users from server");
-
-      Response response = await userRepo.getUserList();
-
-      // Success
-      if (response.statusCode == 200) {
-        response.body
-            .map((jsonUser) => _userList.add(User.fromJson(jsonUser)))
-            .toList();
-        // Add users to Hive box
-        box.addAll(_userList);
-        _isLoaded = true;
-      }
-    } else {
-      // We have users stored internally
-      print("Using users stored on local storage");
-      _isLoaded = true;
-    }
+    _userList = await userRepo.getUserList();
+    _isLoaded = true;
 
     // Update the UI (like setState)
     update();
