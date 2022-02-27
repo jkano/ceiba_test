@@ -16,4 +16,5 @@
         <item name="android:windowBackground">?android:colorBackground</item>
     </style>
     <color name="splash">#FFFFFF</color>
+    <color name="splash_night">#FFFFFF</color>
 </resources>
