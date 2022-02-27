@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
+
 class Post {
   int? userId;
   int? id;
@@ -20,5 +23,14 @@ class Post {
     data['title'] = title;
     data['body'] = body;
     return data;
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return (other is Post) &&
+        other.id == id &&
+        other.title == title &&
+        other.body == body &&
+        other.userId == userId;
   }
 }

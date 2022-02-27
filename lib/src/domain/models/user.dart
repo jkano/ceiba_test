@@ -72,6 +72,19 @@ class User extends HiveObject {
     }
     return data;
   }
+
+  @override
+  bool operator ==(Object other) {
+    return (other is User) &&
+        other.id == id &&
+        other.name == name &&
+        other.username == username &&
+        other.email == email &&
+        other.address == address &&
+        other.phone == phone &&
+        other.website == website &&
+        other.company == company;
+  }
 }
 
 @HiveType(typeId: 1)
@@ -112,6 +125,16 @@ class Address {
     }
     return data;
   }
+
+  @override
+  bool operator ==(Object other) {
+    return (other is Address) &&
+        other.street == street &&
+        other.suite == suite &&
+        other.city == city &&
+        other.zipcode == zipcode &&
+        other.geo == geo;
+  }
 }
 
 @HiveType(typeId: 2)
@@ -134,6 +157,11 @@ class Geo {
     data['lat'] = lat;
     data['lng'] = lng;
     return data;
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return (other is Geo) && other.lat == lat && other.lng == lng;
   }
 }
 
@@ -162,5 +190,13 @@ class Company {
     data['catchPhrase'] = catchPhrase;
     data['bs'] = bs;
     return data;
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return (other is Company) &&
+        other.name == name &&
+        other.catchPhrase == catchPhrase &&
+        other.bs == bs;
   }
 }
