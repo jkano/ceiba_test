@@ -47,6 +47,17 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
+      actions: [
+        IconButton(
+          splashRadius: 18,
+          icon: const Icon(Icons.refresh),
+          onPressed: () async {
+            // Get our controller, clear the saved users and get our user list
+            await Get.find<UserController>().clearUserList();
+            await Get.find<UserController>().getUserList();
+          },
+        )
+      ],
     );
   }
 

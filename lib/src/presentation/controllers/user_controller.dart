@@ -21,4 +21,13 @@ class UserController extends GetxController {
     // Update the UI (like setState)
     update();
   }
+
+  Future<void> clearUserList() async {
+    await userRepo.clearUsersSavedList();
+    _userList = [];
+    _isLoaded = false;
+
+    // Update the UI (like setState)
+    update();
+  }
 }

@@ -11,6 +11,11 @@ class UserRepo extends GetxService {
 
   UserRepo({required this.apiClient});
 
+  Future<void> clearUsersSavedList() async {
+    final box = await Hive.openBox<User>(kUserBox);
+    await box.clear();
+  }
+
   Future<List<User>> getUserList() async {
     List<User> userList = [];
     final box = await Hive.openBox<User>(kUserBox);
