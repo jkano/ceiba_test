@@ -4,7 +4,7 @@ A new application to check users and posts on CeibaBook social network.
 
 ## Main Screen
 
-The main screen shows all the users from CeibaBook. It stores the users internally on the device once it gets them from the server. 
+The main screen shows all the users from CeibaBook. It stores the users internally on the device once it gets them from the server. Also the user can refresh the list using a refresh button. This button will clear the cached users stored in the device and retrieve the users again from the server.
 
 <p align="center">
 <img src="readme/main_screen.png" width="200">
