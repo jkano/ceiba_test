@@ -137,7 +137,7 @@ class EmptyView extends StatelessWidget {
           height: 5,
         ),
         Text(
-          'No user is found with this name',
+          'No se encontró usuario con este nombre',
           style: TextStyle(fontSize: 16),
         ),
       ],

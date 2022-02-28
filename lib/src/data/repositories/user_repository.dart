@@ -32,7 +32,7 @@ class UserRepo extends GetxService {
         // Add users to Hive box
         box.addAll(userList);
       } else {
-        Get.snackbar("Error", "Could not get users from server",
+        Get.snackbar("Error", "No se pudo obtener los usuarios del servidor",
             icon: const Icon(
               Icons.error,
               color: Colors.white,

@@ -22,7 +22,7 @@ class PostRepo extends GetxService {
           .map((jsonUser) => posts.add(Post.fromJson(jsonUser)))
           .toList();
     } else {
-      Get.snackbar("Error", "Could not get all posts from the server",
+      Get.snackbar("Error", "No se pudo obtener las publicaciones del servidor",
           icon: const Icon(
             Icons.error,
             color: Colors.white,
@@ -46,7 +46,7 @@ class PostRepo extends GetxService {
           .map((jsonUser) => posts.add(Post.fromJson(jsonUser)))
           .toList();
     } else {
-      Get.snackbar("Error", "Could not get posts from the server",
+      Get.snackbar("Error", "No se pudo obtener las publicaciones del servidor",
           icon: const Icon(
             Icons.error,
             color: Colors.white,

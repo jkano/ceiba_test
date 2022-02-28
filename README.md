@@ -12,11 +12,11 @@ The main screen shows all the users from CeibaBook. It stores the users internal
 
 ### Search function
 
-The user can search users using the search field. If no user is found that matches the search criteria a "No user is found with this name" message is shown.
+The user can search users using the search field. If no user is found that matches the search criteria a "No se encontró usuario con este nombre" message is shown indicating no user was found.
 
 <p align="center">
 <img src="readme/user_search.png" width="200">
-<img src="readme/user_search_not_found.png" width="200">
+<img src="readme/user_not_found.png" width="200">
 </p>
 
 ### User Posts
